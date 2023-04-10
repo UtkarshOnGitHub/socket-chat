@@ -3,7 +3,8 @@ const io = require("socket.io")(8900, {
       origin: "http://localhost:3000",
     },
 });
-
+const cors = require("cors")
+io.use(cors())
 
 let users = [];
 
