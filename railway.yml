@@ -1,0 +1,6 @@
+version: 2
+env: 
+    - node
+    - ALLOW_CORS: "true"
+buildScript: npm ci
+startScript: node server.js
