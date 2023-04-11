@@ -10,7 +10,12 @@ const socketIO = require("socket.io")
 const cors = require("cors")
 
 const app = express();
-app.use(cors())
+app.use(cors({
+    origin: 'https://example.com', 
+    methods: ['GET', 'POST'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+    credentials: true 
+}))
 const server = http.createServer(app);
 const io = socketIO(server);
 
@@ -41,13 +46,13 @@ const getUser = (userId) => {
 io.on("connection", (socket)=>{
     console.log("a user connected.");
 
-    //take userId and socketId from user
+ 
     socket.on("addUser", (userId) => {
       addUser(userId, socket.id);
       io.emit("getUsers", users);
     });
   
-    //send and get message
+
     socket.on("sendMessage", ({ senderId, receiverId, text, conversationId }) => {
         const user = getUser(receiverId);
         io.to(user.socketId).emit("getMessage", {
@@ -57,7 +62,7 @@ io.on("connection", (socket)=>{
       });
     });
   
-    //when disconnect
+  
     socket.on("disconnect", () => {
       console.log("a user disconnected!");
       removeUser(socket.id);
