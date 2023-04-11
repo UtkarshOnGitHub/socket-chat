@@ -19,7 +19,9 @@ app.use(cors({
 const server = http.createServer(app);
 const io = socketIO(server);
 
-
+app.get("/",(req,res)=>{
+  res.send("Hello Server")
+})
 
 
 
