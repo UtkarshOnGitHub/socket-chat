@@ -11,7 +11,7 @@ const cors = require("cors")
 
 const app = express();
 app.use(cors({
-    origin: 'https://example.com', 
+    origin: 'https://localhost:3000', 
     methods: ['GET', 'POST'], 
     allowedHeaders: ['Content-Type', 'Authorization'], 
     credentials: true 
