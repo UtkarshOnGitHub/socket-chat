@@ -1,15 +1,23 @@
-const io = require("socket.io")(8900, {
-    cors: {
-      origin: "http://localhost:3000",
-    },
-});
-// const cors = require("cors")
-// io.use(cors())
+// const io = require("socket.io")(8900, {
+//     cors: {
+//       origin: "http://localhost:3000",
+//     },
+// });
+
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+
+
+
+
 
 let users = [];
-
-
-
 const addUser = (userId, socketId) => {
     if(userId){
         !users.some((user) => user.userId === userId) &&
@@ -53,4 +61,9 @@ io.on("connection", (socket)=>{
       removeUser(socket.id);
       io.emit("getUsers", users);
     });
+})
+
+
+server.listen(8900,()=>{
+  console.log("Server Connected")
 })
